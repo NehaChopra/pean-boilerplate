@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<base href="/">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>PEAN Boilerplate</title>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css"> <!-- thats important for animation effects -->
+		<link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet"> <!-- Demo -->
+		<link rel="stylesheet" href="app/public/css/index.css" type="text/css">
+
+		<!-- CSS -->
+
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+		<!-- JS -->
+		<script src="bower_modules/angular/angular.min.js"></script>
+		<script src="bower_modules/angular-route/angular-route.min.js"></script>
+
+		<!-- ANGULAR CUSTOM -->
+		<script src="app/controllers/MainCtrl.js"></script>
+		<script src="app/appRoutes.js"></script>
+		<script src="app/app.js"></script>
+	</head>
+	<body ng-app="sampleApp">
+		<div class="container">
+
+			<!-- HEADER -->
+
+			<div ng-include="'app/views/header.html'"></div>
+
+			<!-- ANGULAR DYNAMIC CONTENT -->
+			<div ng-view></div>
+
+			<!-- FOOTER -->
+			<div ng-include="'app/views/footer.html'"></div>
+
+		</div>
+	</body>
+</html>
