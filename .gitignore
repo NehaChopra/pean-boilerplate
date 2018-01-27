@@ -1,0 +1,10 @@
+# Ignore everything in this directory
+!backend
+!frontend
+!deployment
+.gitignore
+
+
+
+
+# Except this file
