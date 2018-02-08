@@ -1,8 +1,13 @@
 var path = require('path');
+var app = require('express')();
+var users = require('../app/controllers/users');
+
 module.exports = function(app) {
 
 
-
+	app.post('/users', users.create);
+	app.put('/users', users.update);
+	app.delete('/users', users.delete);
 
 
 

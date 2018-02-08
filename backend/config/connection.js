@@ -3,40 +3,39 @@
  https://www.techrepublic.com/blog/diy-it-guy/diy-a-postgresql-database-server-setup-anyone-can-handle/
  */
 
-dbconfig = require("./../../dbconfig");
-const { Pool, Client } = require('pg');
-// pools will use environment variables
-// for connection information
-const pool = new Pool({
-	user: dbconfig.connection.user,
-	host: dbconfig.connection.host,
-	database: dbconfig.database,
-	password: dbconfig.connection.password,
-	port: dbconfig.connection.port
-});
-//pool.query('SELECT NOW()', (err, res) => {
-//	console.log(err, res);
-//	pool.end()
-//});
-const client = new Client({
-	user: dbconfig.connection.user,
-	host: dbconfig.connection.host,
-	database: dbconfig.database,
-	password: dbconfig.connection.password,
-	port: dbconfig.connection.port
-});
-client.connect(function(err){
-	if(!err) {
-		console.log("Connection is established successfully...");
-	} else {
-		console.log("Connection to pg setup failure...\n\n");
+'use strict';
+
+var fs        = require('fs'); // deals with file system
+var path      = require('path');
+var Sequelize = require('sequelize');
+var basename  = path.basename(module.filename);
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + './dbConfig')[env];
+var db        = {};
+
+//Create a Sequelize connection to the database using the URL in config/config.js
+
+var sequelize  = new Sequelize(config.sequelize.database, config.sequelize.user, config.sequelize.password, config.sequelize);
+
+//Load all the models
+fs
+	.readdirSync(__dirname)
+	.filter(function(file) {
+		return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+	})
+	.forEach(function(file) {
+		var model = sequelize['import'](path.join(__dirname, file));
+		db[model.name] = model;
+	});
+
+Object.keys(db).forEach(function(modelName) {
+	if (db[modelName].associate) {
+		db[modelName].associate(db);
 	}
 });
 
-//client.query('SELECT NOW()', (err, res) => {
-//	console.log(err, res);
-//	client.end();
-//});
+//Export the db Object
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-
-module.exports = connection;
+module.exports = db;
